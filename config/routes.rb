@@ -1,4 +1,6 @@
 Keyptrack::Application.routes.draw do
+  resources :platforms
+
   resources :users
 
   # The priority is based upon order of creation:
