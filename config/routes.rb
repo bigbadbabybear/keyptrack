@@ -1,4 +1,6 @@
 Keyptrack::Application.routes.draw do
+  resources :resolutions
+
   resources :statuses
 
   resources :games
