@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  game: 
+  platform: 
+  report_number: MyString
+  status: 
+  resolution: 
+  fix_commit: MyString
+  fix_confirm: MyString
+
+two:
+  user: 
+  game: 
+  platform: 
+  report_number: MyString
+  status: 
+  resolution: 
+  fix_commit: MyString
+  fix_confirm: MyString

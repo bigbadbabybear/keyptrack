@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @report.user %>
+</p>
+
+<p>
+  <b>Game:</b>
+  <%= @report.game %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%= @report.platform %>
+</p>
+
+<p>
+  <b>Report number:</b>
+  <%= @report.report_number %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @report.status %>
+</p>
+
+<p>
+  <b>Resolution:</b>
+  <%= @report.resolution %>
+</p>
+
+<p>
+  <b>Fix commit:</b>
+  <%= @report.fix_commit %>
+</p>
+
+<p>
+  <b>Fix confirm:</b>
+  <%= @report.fix_confirm %>
+</p>
+
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>
