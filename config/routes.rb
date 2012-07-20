@@ -1,4 +1,6 @@
 Keyptrack::Application.routes.draw do
+  resources :builds
+
   resources :reports
 
   resources :resolutions

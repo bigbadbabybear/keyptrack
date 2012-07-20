@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Game:</b>
+  <%= @build.game %>
+</p>
+
+<p>
+  <b>Platform:</b>
+  <%= @build.platform %>
+</p>
+
+<p>
+  <b>Commit:</b>
+  <%= @build.commit %>
+</p>
+
+
+<%= link_to 'Edit', edit_build_path(@build) %> |
+<%= link_to 'Back', builds_path %>
