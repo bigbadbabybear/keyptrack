@@ -5,7 +5,6 @@
     <th>User</th>
     <th>Game</th>
     <th>Platform</th>
-    <th>Report number</th>
     <th>Status</th>
     <th>Resolution</th>
     <th>Fix commit</th>
@@ -17,12 +16,11 @@
 
 <% @reports.each do |report| %>
   <tr>
-    <td><%= report.user %></td>
-    <td><%= report.game %></td>
-    <td><%= report.platform %></td>
-    <td><%= report.report_number %></td>
-    <td><%= report.status %></td>
-    <td><%= report.resolution %></td>
+    <td><%= report.user.name %></td>
+    <td><%= link_to "#{report.game.key}-#{report.report_number}", "http://192.168.1.13:8080/browse/#{report.game.key}-#{report.report_number}" %></td>
+    <td><%= report.platform.os %></td>
+    <td><%= report.status.status %></td>
+    <td><%= report.resolution.resolution %></td>
     <td><%= report.fix_commit %></td>
     <td><%= report.fix_confirm %></td>
     <td><%= link_to 'Show', report %></td>

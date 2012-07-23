@@ -1,7 +1,19 @@
 Keyptrack::Application.routes.draw do
-  resources :builds
 
-  resources :reports
+	root :to => "page#index"
+
+  resources :builds do
+		resource :game
+		resource :platform
+	end
+
+  resources :reports do
+		resource :user
+		resource :game
+		resource :platform
+		resource :status
+		resource :resolution
+	end
 
   resources :resolutions
 
@@ -11,7 +23,9 @@ Keyptrack::Application.routes.draw do
 
   resources :platforms
 
-  resources :users
+  resources :users do 
+		resources :reports
+	end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

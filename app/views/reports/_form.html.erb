@@ -2,7 +2,6 @@
   <% if @report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
-
       <ul>
       <% @report.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -13,37 +12,24 @@
 
   <div class="field">
     <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.collection_select :user_id, User.order("name ASC"), :id, :name, :include_blank => true  %>
   </div>
   <div class="field">
     <%= f.label :game %><br />
-    <%= f.text_field :game %>
+    <%= f.collection_select :game_id, Game.order("title ASC"), :id, :title, :include_blank => true  %>
   </div>
   <div class="field">
     <%= f.label :platform %><br />
-    <%= f.text_field :platform %>
+    <%= f.collection_select :platform_id, Platform.order("os ASC"), :id, :os, :include_blank => true  %>
   </div>
   <div class="field">
     <%= f.label :report_number %><br />
     <%= f.text_field :report_number %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :resolution %><br />
-    <%= f.text_field :resolution %>
-  </div>
-  <div class="field">
-    <%= f.label :fix_commit %><br />
-    <%= f.text_field :fix_commit %>
-  </div>
-  <div class="field">
-    <%= f.label :fix_confirm %><br />
-    <%= f.text_field :fix_confirm %>
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+	<pre>
+	<%= Resolution.where(:resolution => 'Unresolved').to_yaml %>
+	</pre>
 <% end %>

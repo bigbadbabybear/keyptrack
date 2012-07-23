@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
-
+<pre>
+<%= debug @report %>
+</pre>
 <p>
   <b>User:</b>
-  <%= @report.user %>
+  <%= @report.user.name %>
 </p>
 
 <p>
   <b>Game:</b>
-  <%= @report.game %>
+  <%= @report.game.title %>
 </p>
 
 <p>
   <b>Platform:</b>
-  <%= @report.platform %>
+  <%= @report.platform.os %>
 </p>
 
 <p>
@@ -22,12 +24,12 @@
 
 <p>
   <b>Status:</b>
-  <%= @report.status %>
+  <%= @report.status.status %>
 </p>
 
 <p>
   <b>Resolution:</b>
-  <%= @report.resolution %>
+  <%= @report.resolution.resolution %>
 </p>
 
 <p>
