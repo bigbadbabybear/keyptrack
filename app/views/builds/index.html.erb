@@ -12,8 +12,8 @@
 
 <% @builds.each do |build| %>
   <tr>
-    <td><%= build.game %></td>
-    <td><%= build.platform %></td>
+    <td><%= build.game.title %></td>
+    <td><%= build.platform.os %></td>
     <td><%= build.commit %></td>
     <td><%= link_to 'Show', build %></td>
     <td><%= link_to 'Edit', edit_build_path(build) %></td>

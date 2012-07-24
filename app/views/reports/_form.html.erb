@@ -26,19 +26,24 @@
     <%= f.label :report_number %>
     <%= f.text_field :report_number %>
   </div>
-
-	<% if params[:action] == "edit" %>
+<% if params[:action] == "edit" %>
+	<div class="field">
+		<%= f.label :status %>
+    <%= f.collection_select :status_id, Status.all, :id, :status %>
+	</div>
+	<div class="field">
+		<%= f.label :resolution %>
+    <%= f.collection_select :resolution_id, Resolution.all, :id, :resolution %>
+	</div>
 	<div class="field">
  		<%= f.label :fix_commit %>
   	<%= f.text_field :fix_commit %>
   </div>
-
   <div class="field">
   	<%= f.label :fix_confirm %>
   	<%= f.text_field :fix_confirm %>
   </div>
-	<% end %>
-
+<% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

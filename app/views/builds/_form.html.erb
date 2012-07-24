@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :game %><br />
-    <%= f.text_field :game %>
+    <%= f.label :game %>
+		<%= f.collection_select :game_id, Game.order("title ASC"), :id, :title %>
   </div>
   <div class="field">
-    <%= f.label :platform %><br />
-    <%= f.text_field :platform %>
+    <%= f.label :platform %>
+		<%= f.collection_select :platform_id, Platform.order("os ASC"), :id, :os %>
   </div>
   <div class="field">
-    <%= f.label :commit %><br />
+    <%= f.label :commit %>
     <%= f.text_field :commit %>
   </div>
   <div class="actions">

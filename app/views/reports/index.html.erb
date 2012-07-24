@@ -18,7 +18,7 @@
   <tr>
     <td><%= report.user.name %></td>
     <td><%= link_to "#{report.game.key}-#{report.report_number}", "http://192.168.1.13:8080/browse/#{report.game.key}-#{report.report_number}" %></td>
-    <td><%= report.platform.os %></td>
+    <td><%= report.platform.os rescue "" %></td>
     <td><%= report.status.status %></td>
     <td><%= report.resolution.resolution %></td>
     <td><%= report.fix_commit %></td>

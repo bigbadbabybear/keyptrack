@@ -11,7 +11,7 @@ class Report < ActiveRecord::Base
 
 	validates :user, :presence => true
 	validates :game, :presence => true
-	validates :platform, :presence => true
+	#validates :platform, :presence => true
 	validates :report_number, :presence => true
 
 	# when a bug report is created Status/Resolution should be Open/Unresolved

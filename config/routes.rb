@@ -1,6 +1,6 @@
 Keyptrack::Application.routes.draw do
 
-	root :to => "page#index"
+	root :to => "reports#index"
 
   resources :builds
 
