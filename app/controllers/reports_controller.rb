@@ -40,14 +40,8 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-		@report.inspect
     @report = Report.new(params[:report])
-		@report.inspect
-		#@report.status_id = Status.where(:status => 'Open')
-		#resolution = Resolution.where(:resolution = 'Unresolved')
-		@report.assign_attributes({ :status_id => Status.where(:status => 'Open'),
-										:resolution_id => Resolution.where(:resolution => 'Unresolved') })
-
+		 
     respond_to do |format|
       if @report.save
         format.html { redirect_to @report, notice: 'Report was successfully created.' }

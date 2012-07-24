@@ -11,25 +11,35 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user %><br />
+    <%= f.label :user %>
     <%= f.collection_select :user_id, User.order("name ASC"), :id, :name, :include_blank => true  %>
   </div>
   <div class="field">
-    <%= f.label :game %><br />
+    <%= f.label :game %>
     <%= f.collection_select :game_id, Game.order("title ASC"), :id, :title, :include_blank => true  %>
   </div>
   <div class="field">
-    <%= f.label :platform %><br />
+    <%= f.label :platform %>
     <%= f.collection_select :platform_id, Platform.order("os ASC"), :id, :os, :include_blank => true  %>
   </div>
   <div class="field">
-    <%= f.label :report_number %><br />
+    <%= f.label :report_number %>
     <%= f.text_field :report_number %>
   </div>
+
+	<% if params[:action] == "edit" %>
+	<div class="field">
+ 		<%= f.label :fix_commit %>
+  	<%= f.text_field :fix_commit %>
+  </div>
+
+  <div class="field">
+  	<%= f.label :fix_confirm %>
+  	<%= f.text_field :fix_confirm %>
+  </div>
+	<% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
-	<pre>
-	<%= Resolution.where(:resolution => 'Unresolved').to_yaml %>
-	</pre>
 <% end %>
