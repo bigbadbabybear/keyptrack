@@ -13,6 +13,9 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
+		require 'nokogiri'
+		require 'open-uri'
+
     @report = Report.find(params[:id])
 
     respond_to do |format|
@@ -80,4 +83,14 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+	def regression
+		#@reports = Report.joins('INNER JOIN builds ON reports.game_id = builds.game_id')
+		@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit <= builds.commit)') 
+
+  	respond_to do |format|
+  		format.html # regression.html.erb
+  		format.json { render json: @reports }
+		end
+	end
 end

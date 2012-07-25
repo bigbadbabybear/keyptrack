@@ -4,6 +4,7 @@ Keyptrack::Application.routes.draw do
 
   resources :builds
 
+	match '/reports/regression', :controller => 'reports', :action => 'regression'
   resources :reports
 
   resources :resolutions
