@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
+    @reports = Report.order("platform_id, game_id, user_id ASC, report_number DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,8 +86,10 @@ class ReportsController < ApplicationController
 
 	def regression
 		#@reports = Report.joins('INNER JOIN builds ON reports.game_id = builds.game_id')
-		@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit <= builds.commit)') 
-
+		#@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit = builds.commit)').where('reports.fix_commit <= builds.commit') 
+		@reports = Report.joins('LEFT JOIN builds ON reports.game_id = builds.game_id')
+								.where('reports.status_id = 4 AND reports.resolution_id = 1 AND reports.fix_commit != \'\' AND reports.fix_commit <= builds.commit')
+								.order("reports.platform_id, reports.game_id, reports.user_id ASC, reports.report_number DESC")
   	respond_to do |format|
   		format.html # regression.html.erb
   		format.json { render json: @reports }

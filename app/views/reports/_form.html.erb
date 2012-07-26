@@ -26,7 +26,7 @@
     <%= f.label :report_number %>
     <%= f.text_field :report_number %>
   </div>
-<% if params[:action] == "edit" %>
+	<% if params[:action] == "edit" %>
 	<div class="field">
 		<%= f.label :status %>
     <%= f.collection_select :status_id, Status.all, :id, :status %>
@@ -43,8 +43,14 @@
   	<%= f.label :fix_confirm %>
   	<%= f.text_field :fix_confirm %>
   </div>
-<% end %>
+	<% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
+	<% if params[:action] == "edit" %>
+	<hr />
+ 	<p>
+ 		<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.game.key}-#{@report.report_number}" %>" width="100%" height="400" frameborder="0"></iframe>
+ 	</p>
+	<% end %>
 <% end %>

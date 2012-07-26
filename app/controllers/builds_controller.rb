@@ -2,7 +2,7 @@ class BuildsController < ApplicationController
   # GET /builds
   # GET /builds.json
   def index
-    @builds = Build.all
+		@builds = Build.order("platform_id, game_id ASC")
 
     respond_to do |format|
       format.html # index.html.erb

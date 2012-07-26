@@ -1,4 +1,3 @@
-<div style="float: left; width: 25%;">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -42,9 +41,9 @@
 </p>
 
 <%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
-</div>
-
-<div style="float:left; width:75%">
-<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.game.key}-#{@report.report_number}" %>" width="100%" height="300" frameborder="0"></iframe>
-</div>
+<%= link_to 'Back', reports_path %> |
+<%= link_to 'New Report', new_report_path %>
+<hr />
+<p>
+<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.game.key}-#{@report.report_number}" %>" width="100%" height="400" frameborder="0"></iframe>
+</p>
