@@ -2,7 +2,8 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.order("platform_id, game_id, user_id ASC, report_number DESC")
+    #@reports = Report.order("platform_id ASC, game_id ASC, status_id ASC, resolution_id DESC, report_number DESC")
+    @reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -63,7 +64,8 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.update_attributes(params[:report])
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        #format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html { redirect_to action: "index" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -87,9 +89,11 @@ class ReportsController < ApplicationController
 	def regression
 		#@reports = Report.joins('INNER JOIN builds ON reports.game_id = builds.game_id')
 		#@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit = builds.commit)').where('reports.fix_commit <= builds.commit') 
-		@reports = Report.joins('LEFT JOIN builds ON reports.game_id = builds.game_id')
-								.where('reports.status_id = 4 AND reports.resolution_id = 1 AND reports.fix_commit != \'\' AND reports.fix_commit <= builds.commit')
-								.order("reports.platform_id, reports.game_id, reports.user_id ASC, reports.report_number DESC")
+		#@reports = Report.joins('LEFT JOIN builds ON reports.game_id = builds.game_id')
+		#						.where('reports.status_id = 4 AND reports.resolution_id = 1 AND reports.fix_commit != \'\' AND reports.fix_commit <= builds.commit')
+		#						.order("reports.platform_id, reports.game_id, reports.user_id ASC, reports.report_number DESC")
+		@reports = Report.joins('RIGHT JOIN Builds B on reports.game_id = B.id').joins('JOIN Platforms P on reports.platform_id = P.id')
+								.where('(reports.fix_commit != \'\' or reports.fix_commit != NULL) AND reports.fix_commit <= B.commit')
   	respond_to do |format|
   		format.html # regression.html.erb
   		format.json { render json: @reports }

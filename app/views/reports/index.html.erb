@@ -9,6 +9,7 @@
     <th>Resolution</th>
     <th>Fix commit</th>
     <th>Fix confirm</th>
+    <th>Date Created</th>
     <th></th>
     <th></th>
     <th></th>
@@ -23,6 +24,7 @@
     <td><%= report.resolution.resolution rescue "" %></td>
     <td><%= report.fix_commit %></td>
     <td><%= report.fix_confirm %></td>
+    <td><%= report.created_when? %></td>
     <td><%= link_to 'Show', report %></td>
     <td><%= link_to 'Edit', edit_report_path(report) %></td>
     <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>

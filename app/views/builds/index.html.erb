@@ -25,3 +25,25 @@
 <br />
 
 <%= link_to 'New Build', new_build_path %>
+
+<h1>Latest Build</h1>
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Platform</th>
+    <th>Commit</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @latest.each do |build| %>
+  <tr>
+    <td><%= build.game.title %></td>
+    <td><%= build.platform.os %></td>
+    <td><%= build.commit %></td>
+    <td><%= link_to 'Show', build %></td>
+    <td><%= link_to 'Edit', edit_build_path(build) %></td>
+    <td><%= link_to 'Destroy', build, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

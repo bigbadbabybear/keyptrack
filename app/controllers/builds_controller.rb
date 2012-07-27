@@ -4,6 +4,16 @@ class BuildsController < ApplicationController
   def index
 		@builds = Build.order("platform_id, game_id ASC")
 
+		#@latest = Array.new	
+		#games = Game.all
+		#platforms = Platform.all
+		#games.each do |game|
+		#	platforms.each do |platform|
+		#		tmp = Build.where("game_id = #{game.id} AND platform_id = #{platform.id}").order("commit DESC").first
+		#		@latest += tmp.to_a
+		#	end
+		#end
+	
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @builds }

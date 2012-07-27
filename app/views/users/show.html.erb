@@ -5,6 +5,33 @@
   <%= @user.name %>
 </p>
 
-
+<table>
+	<tr>
+ 		<th>User</th>
+   	<th>Game</th>
+    <th>Platform</th>
+    <th>Status</th>
+    <th>Resolution</th>
+    <th>Fix commit</th>
+    <th>Fix confirm</th>
+    <th>Date Created</th>
+		<th></th>
+		<th></th>
+	</tr>
+ 	<% @reports.each do |report| %>
+  <tr>
+   	<td><%= report.user.name %></td>
+    <td><%= link_to "#{report.game.key}-#{report.report_number}", "http://192.168.1.13:8080/browse/#{report.game.key}-#{report.report_number}" %></td>
+    <td><%= report.platform.os rescue "" %></td>
+    <td><%= report.status.status rescue "" %></td>
+    <td><%= report.resolution.resolution rescue "" %></td>
+   	<td><%= report.fix_commit %></td>
+   	<td><%= report.fix_confirm %></td>
+ 		<td><%= report.created_when? %></td>
+		<td><%= link_to 'Show', report %></td>
+		<td><%= link_to 'Edit', edit_report_path(report) %></td>
+	</tr>
+<% end %>
+</table>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
