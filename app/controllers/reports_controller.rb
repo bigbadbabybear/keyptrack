@@ -3,8 +3,8 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     #@reports = Report.order("platform_id ASC, game_id ASC, status_id ASC, resolution_id DESC, report_number DESC")
-    @reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
-
+    #@reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
+		@reports = Report.paginate(:page => params[:page], :per_page => 15).order('status_id ASC, resolution_id ASC, updated_at DESC')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reports }
@@ -14,9 +14,6 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-		require 'nokogiri'
-		require 'open-uri'
-
     @report = Report.find(params[:id])
 
     respond_to do |format|
@@ -97,6 +94,14 @@ class ReportsController < ApplicationController
   	respond_to do |format|
   		format.html # regression.html.erb
   		format.json { render json: @reports }
+		end
+	end
+
+	def search
+		@reports = Report.find(:first, :conditions => [ "reports.report_key LIKE \'#{params[:report_search]}\'"])
+		@report = Report.new
+		respond_to do |format|
+			format.html
 		end
 	end
 end

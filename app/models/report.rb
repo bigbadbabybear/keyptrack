@@ -7,12 +7,9 @@ class Report < ActiveRecord::Base
 
 	before_create :set_to_open_unresolved
 
-  attr_accessible :fix_commit, :fix_confirm, :report_number, :user_id, :game_id, :platform_id, :status_id, :resolution_id
+  attr_accessible :fix_commit, :fix_confirm, :report_key, :user_id, :game_id, :platform_id, :status_id, :resolution_id
 
-	validates :user, :presence => true
-	validates :game, :presence => true
-	#validates :platform, :presence => true
-	validates :report_number, :presence => true
+	validates :report_key, :presence => true
 
 	# when a bug report is created Status/Resolution should be Open/Unresolved
 	def set_to_open_unresolved

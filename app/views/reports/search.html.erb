@@ -1,0 +1,14 @@
+<h1>Search Results</h1>
+
+<%= form_tag('/reports/search') do %>
+	<% value = params[:report_search] != "" ? params[:report_search] : "" %>	
+	<%= text_field_tag :report_search, value %>
+	<%= submit_tag 'Search' %>
+<% end %>
+<br/>
+<% if(params[:report_search] != "") %>
+<div>
+	<iframe src="<%= "http://192.168.1.13:8080/browse/#{params[:report_search]}" %>" style="width: 100%; height: 350px;"></iframe>
+</div>
+<%= render :template => 'reports/new' %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120720061611) do
+ActiveRecord::Schema.define(:version => 20120731064129) do
 
   create_table "builds", :force => true do |t|
     t.integer  "game_id"
@@ -41,13 +41,13 @@ ActiveRecord::Schema.define(:version => 20120720061611) do
     t.integer  "user_id"
     t.integer  "game_id"
     t.integer  "platform_id"
-    t.string   "report_number"
     t.integer  "status_id"
     t.integer  "resolution_id"
     t.string   "fix_commit"
     t.string   "fix_confirm"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "report_key"
   end
 
   add_index "reports", ["game_id"], :name => "index_reports_on_game_id"
