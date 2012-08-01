@@ -23,7 +23,7 @@
  	<% @reports.each do |report| %>
   <tr>
    	<td><%= report.user.name %></td>
-    <td><%= link_to "#{report.game.key}-#{report.report_number}", "http://192.168.1.13:8080/browse/#{report.game.key}-#{report.report_number}" %></td>
+    <td><%= link_to "#{report.report_key}", "http://192.168.1.13:8080/browse/#{report.report_key}" %></td>
     <td><%= report.platform.os rescue "" %></td>
     <td><%= report.status.status rescue "" %></td>
     <td><%= report.resolution.resolution rescue "" %></td>

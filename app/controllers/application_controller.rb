@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
 	def jira_link
 		return "http://192.168.1.13:8080/browse/"
 	end
+
+	def current_user
+			
+	end
 end

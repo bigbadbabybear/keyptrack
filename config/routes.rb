@@ -6,7 +6,9 @@ Keyptrack::Application.routes.draw do
 
 	match '/reports/regression', :controller => 'reports', :action => 'regression'
 	match 'reports/search', :controller => 'reports', :action => 'search'
-  resources :reports
+  resources :reports do
+		resources :games
+	end
 
   resources :resolutions
 

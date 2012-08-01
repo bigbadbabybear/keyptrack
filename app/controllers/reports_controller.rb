@@ -5,6 +5,8 @@ class ReportsController < ApplicationController
     #@reports = Report.order("platform_id ASC, game_id ASC, status_id ASC, resolution_id DESC, report_number DESC")
     #@reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
 		@reports = Report.paginate(:page => params[:page], :per_page => 15).order('status_id ASC, resolution_id ASC, updated_at DESC')
+		@reports_by_game = @reports.group_by { |g| g.game_id }
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reports }
@@ -41,17 +43,27 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new(params[:report])
-		 
-    respond_to do |format|
-      if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render json: @report, status: :created, location: @report }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
+		check_unique = Report.find(:first, :conditions => ["report_key LIKE \'#{params[:report][:report_key]}\'"])
+
+		if !check_unique
+    	@report = Report.new(params[:report])
+			@report.get_game_id params[:report][:report_key]
+
+    	respond_to do |format|
+     		if @report.save
+     	   	format.html { redirect_to @report, notice: 'Report was successfully created.' }
+     	   	format.json { render json: @report, status: :created, location: @report }
+     	 	else
+     	   	format.html { render action: "new" }
+     	   	format.json { render json: @report.errors, status: :unprocessable_entity }
+     	 	end
+    	end
+		end
+
+		@report = check_unique
+		respond_to do |format|
+			format.html { redirect_to @report, notice: 'ALREADY REPORTED!'}
+		end
   end
 
   # PUT /reports/1

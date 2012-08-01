@@ -15,10 +15,6 @@
     <%= f.collection_select :user_id, User.order("name ASC"), :id, :name, :include_blank => true  %>
   </div>
   <div class="field">
-    <%= f.label :game %>
-    <%= f.collection_select :game_id, Game.order("title ASC"), :id, :title, :include_blank => true  %>
-  </div>
-  <div class="field">
     <%= f.label :platform %>
     <%= f.collection_select :platform_id, Platform.order("os ASC"), :id, :os, :include_blank => true  %>
   </div>
@@ -50,7 +46,7 @@
 	<% if params[:action] == "edit" %>
 	<hr />
  	<p>
- 		<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.game.key}-#{@report.report_number}" %>" width="100%" height="400" frameborder="0"></iframe>
+ 		<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.report_key}" %>" width="100%" height="400" frameborder="0"></iframe>
  	</p>
 	<% end %>
 <% end %>

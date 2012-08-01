@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <b>Report number:</b>
-  <%= @report.report_number %>
+  <b>Report Key:</b>
+  <%= @report.report_key %>
 </p>
 
 <p>
@@ -45,5 +45,5 @@
 <%= link_to 'New Report', new_report_path %>
 <hr />
 <p>
-<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.game.key}-#{@report.report_number}" %>" width="100%" height="400" frameborder="0"></iframe>
+<iframe src="http://192.168.1.13:8080/browse/<%= "#{@report.report_key}" %>" width="100%" height="400" frameborder="0"></iframe>
 </p>

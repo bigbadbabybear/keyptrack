@@ -19,6 +19,12 @@ class Report < ActiveRecord::Base
 		self.resolution_id = resolution.id
 	end
 
+	def get_game_id(str)
+		title = str.split("-")[0]
+		game = Game.find_by_key "\'#{title}\'"
+		self.game_id = game.object_id
+	end
+
 	def created_when?
 		date_diff = Date.today - self.created_at.to_date
 		case date_diff 

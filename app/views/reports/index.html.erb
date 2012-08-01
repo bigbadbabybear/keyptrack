@@ -5,7 +5,7 @@
 	<%= submit_tag 'Search' %>
 <% end %>
 
-<p><%= link_to 'New Report', new_report_path %></p>
+<!--<p><%= link_to 'New Report', new_report_path %></p>
 
 <%= will_paginate @reports %>
 <div id="reports">
@@ -21,4 +21,20 @@
 </div>
 <%= will_paginate @reports %>
 
-<p><%= link_to 'New Report', new_report_path %></p>
+<p><%= link_to 'New Report', new_report_path %></p>-->
+
+<!-- GROUP_BY -->
+<div id="reports">
+<% @reports_by_game.each do |game, reports| %>
+	<h2><%= game %></h2>
+	<% for report in reports %>
+	<div class="report">
+		<p class="report-key"><%= report.report_key %></p>
+		<p class="report-name"><%= report.user.name %></p>
+		<p class="report-status"><%= report.status.status %></p>
+		<p class="report-resolution"><%= report.resolution.resolution %></p>
+		<p><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+	</div>
+	<% end %>
+<% end %>
+</div>
