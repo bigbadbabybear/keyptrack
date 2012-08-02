@@ -14,7 +14,9 @@ Keyptrack::Application.routes.draw do
 
   resources :statuses
 
-  resources :games
+  resources :games do
+		resources :reports
+	end
 
   resources :platforms
 

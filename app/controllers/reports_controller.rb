@@ -4,9 +4,8 @@ class ReportsController < ApplicationController
   def index
     #@reports = Report.order("platform_id ASC, game_id ASC, status_id ASC, resolution_id DESC, report_number DESC")
     #@reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
-		@reports = Report.paginate(:page => params[:page], :per_page => 15).order('status_id ASC, resolution_id ASC, updated_at DESC')
-		@reports_by_game = @reports.group_by { |g| g.game_id }
-
+    @reports = Report.paginate(:page => params[:page], :per_page => 15).order('status_id ASC, resolution_id ASC, updated_at DESC')
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reports }
@@ -43,27 +42,22 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-		check_unique = Report.find(:first, :conditions => ["report_key LIKE \'#{params[:report][:report_key]}\'"])
+    #@report  = Report.where(:report_key => "#{params[:report][:report_key]}").first_or_initialize(params[:report])
+    @report = Report.new(params[:report])
+    #
+    # GAME-#### report_key
+    #
+    @report.get_game_id params[:report][:report_key]
 
-		if !check_unique
-    	@report = Report.new(params[:report])
-			@report.get_game_id params[:report][:report_key]
-
-    	respond_to do |format|
-     		if @report.save
-     	   	format.html { redirect_to @report, notice: 'Report was successfully created.' }
-     	   	format.json { render json: @report, status: :created, location: @report }
-     	 	else
-     	   	format.html { render action: "new" }
-     	   	format.json { render json: @report.errors, status: :unprocessable_entity }
-     	 	end
-    	end
-		end
-
-		@report = check_unique
-		respond_to do |format|
-			format.html { redirect_to @report, notice: 'ALREADY REPORTED!'}
-		end
+    respond_to do |format|
+      if @report.save
+        format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        format.json { render json: @report, status: :created, location: @report }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /reports/1
@@ -95,25 +89,25 @@ class ReportsController < ApplicationController
     end
   end
 
-	def regression
-		#@reports = Report.joins('INNER JOIN builds ON reports.game_id = builds.game_id')
-		#@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit = builds.commit)').where('reports.fix_commit <= builds.commit') 
-		#@reports = Report.joins('LEFT JOIN builds ON reports.game_id = builds.game_id')
-		#						.where('reports.status_id = 4 AND reports.resolution_id = 1 AND reports.fix_commit != \'\' AND reports.fix_commit <= builds.commit')
-		#						.order("reports.platform_id, reports.game_id, reports.user_id ASC, reports.report_number DESC")
-		@reports = Report.joins('RIGHT JOIN Builds B on reports.game_id = B.id').joins('JOIN Platforms P on reports.platform_id = P.id')
-								.where('(reports.fix_commit != \'\' or reports.fix_commit != NULL) AND reports.fix_commit <= B.commit')
-  	respond_to do |format|
-  		format.html # regression.html.erb
-  		format.json { render json: @reports }
-		end
-	end
+  def regression
+    #@reports = Report.joins('INNER JOIN builds ON reports.game_id = builds.game_id')
+    #@reports = Report.joins('INNER JOIN builds ON (reports.game_id = builds.game_id) AND (reports.fix_commit = builds.commit)').where('reports.fix_commit <= builds.commit') 
+    #@reports = Report.joins('LEFT JOIN builds ON reports.game_id = builds.game_id')
+    #           .where('reports.status_id = 4 AND reports.resolution_id = 1 AND reports.fix_commit != \'\' AND reports.fix_commit <= builds.commit')
+    #           .order("reports.platform_id, reports.game_id, reports.user_id ASC, reports.report_number DESC")
+    @reports = Report.joins('RIGHT JOIN Builds B on reports.game_id = B.id').joins('JOIN Platforms P on reports.platform_id = P.id')
+                .where('(reports.fix_commit != \'\' or reports.fix_commit != NULL) AND reports.fix_commit <= B.commit')
+    respond_to do |format|
+      format.html # regression.html.erb
+      format.json { render json: @reports }
+    end
+  end
 
-	def search
-		@reports = Report.find(:first, :conditions => [ "reports.report_key LIKE \'#{params[:report_search]}\'"])
-		@report = Report.new
-		respond_to do |format|
-			format.html
-		end
-	end
+  def search
+    @reports = Report.find(:first, :conditions => [ "reports.report_key LIKE \'#{params[:report_search]}\'"])
+    @report = Report.new
+    respond_to do |format|
+      format.html
+    end
+  end
 end
