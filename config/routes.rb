@@ -1,14 +1,19 @@
 Keyptrack::Application.routes.draw do
 
 	root :to => "reports#index"
+	
+	resources :google_plays, :controller => :builds, :type => "GooglePlay"
+	resources :ipads, :controller => :builds, :type => "Ipad"
+	resources :ipad_pros, :controller => :builds, :type => "IpadPro"
+	resources :iphones, :controller => :builds, :type => "Iphone"
+	resources :iphone_pros, :controller => :builds, :type => "IphonePro"
+	match '/builds/current', :controller => 'builds', :action => 'current', :type => "Build"
 
-  resources :builds
+  resources :builds, :type => "Build"
 
-	match '/reports/regression', :controller => 'reports', :action => 'regression'
-	match 'reports/search', :controller => 'reports', :action => 'search'
-  resources :reports do
-		resources :games
-	end
+	#	match '/reports/regression', :controller => 'reports', :action => 'regression'
+	# match '/reports/search', :controller => 'reports', :action => 'search'
+  resources :reports
 
   resources :resolutions
 
@@ -20,7 +25,9 @@ Keyptrack::Application.routes.draw do
 
   resources :platforms
 
-  resources :users 
+  resources :users do
+		resources :reports
+	end 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

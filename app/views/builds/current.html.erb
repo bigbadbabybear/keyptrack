@@ -1,0 +1,20 @@
+<h1>Current Builds</h1>
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Commit</th>
+    <th>Date</th>
+    <!--<th></th>
+    <th></th>-->
+  </tr>
+
+<% @builds.each do |build| %>
+  <tr>
+    <td><%= build.game.title %></td>
+    <td><%= build.commit %></td>
+    <!--<td><%= link_to 'Show', build %></td>
+    <td><%= link_to 'Edit', edit_build_path(build) %></td>
+    <td><%= link_to 'Destroy', build, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+  </tr>
+<% end %>
+</table>

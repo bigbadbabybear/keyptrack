@@ -2,20 +2,20 @@ class BuildsController < ApplicationController
   # GET /builds
   # GET /builds.json
   def index
-		@builds = Build.order("platform_id, game_id ASC")
+		@builds = build_type.all
 
-		#@latest = Array.new	
-		#games = Game.all
-		#platforms = Platform.all
-		#games.each do |game|
-		#	platforms.each do |platform|
-		#		tmp = Build.where("game_id = #{game.id} AND platform_id = #{platform.id}").order("commit DESC").first
-		#		@latest += tmp.to_a
-		#	end
-		#end
-	
     respond_to do |format|
       format.html # index.html.erb
+      format.json { render json: @builds }
+    end
+  end
+
+  # GET /builds/latest
+  def current
+		@builds = GooglePlay.select("DISTINCT(game_id), builds.*").all
+
+    respond_to do |format|
+      format.html # latest.html.erb
       format.json { render json: @builds }
     end
   end
@@ -23,7 +23,7 @@ class BuildsController < ApplicationController
   # GET /builds/1
   # GET /builds/1.json
   def show
-    @build = Build.find(params[:id])
+    @build = build_type.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class BuildsController < ApplicationController
   # GET /builds/new
   # GET /builds/new.json
   def new
-    @build = Build.new
+    @build = build_type.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,16 +42,20 @@ class BuildsController < ApplicationController
     end
   end
 
+	def build_type
+		params[:type].constantize
+	end
+
   # GET /builds/1/edit
   def edit
-    @build = Build.find(params[:id])
+    @build = build_type.find(params[:id])
   end
 
   # POST /builds
   # POST /builds.json
   def create
-    @build = Build.new(params[:build])
-
+		type = params[:type].underscore
+    @build = build_type.new(params[type.to_s])
     respond_to do |format|
       if @build.save
         format.html { redirect_to @build, notice: 'Build was successfully created.' }
@@ -66,7 +70,7 @@ class BuildsController < ApplicationController
   # PUT /builds/1
   # PUT /builds/1.json
   def update
-    @build = Build.find(params[:id])
+    @build = build_type.find(params[:id])
 
     respond_to do |format|
       if @build.update_attributes(params[:build])
@@ -82,7 +86,7 @@ class BuildsController < ApplicationController
   # DELETE /builds/1
   # DELETE /builds/1.json
   def destroy
-    @build = Build.find(params[:id])
+    @build = build_type.find(params[:id])
     @build.destroy
 
     respond_to do |format|

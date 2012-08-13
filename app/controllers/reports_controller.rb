@@ -4,8 +4,9 @@ class ReportsController < ApplicationController
   def index
     #@reports = Report.order("platform_id ASC, game_id ASC, status_id ASC, resolution_id DESC, report_number DESC")
     #@reports = Report.order("status_id ASC, resolution_id ASC, updated_at DESC")
-    @reports = Report.paginate(:page => params[:page], :per_page => 15).order('status_id ASC, resolution_id ASC, updated_at DESC')
-    
+		id = :user_id ? :user_id : :id
+    @reports = Report.paginate(:page => params[:page], :per_page => 15).where("user_id = #{id}")
+		#.order("status_id ASC, resolution_id ASC, updated_at DESC")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reports }

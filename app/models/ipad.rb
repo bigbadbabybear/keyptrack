@@ -1,0 +1,3 @@
+class Ipad < Build
+
+end

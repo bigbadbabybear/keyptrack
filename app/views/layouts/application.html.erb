@@ -15,7 +15,13 @@
 		<%= link_to "Home", root_path %><br/>
 		<%= link_to "Reports", reports_path %> - 
 		<%= link_to "Regression", reports_regression_path %> - 
-		<%= link_to "Builds", builds_path %><br/> 
+		<%= link_to "Builds", builds_path %>
+		( <%= link_to "GooglePlay", google_plays_path %>, 
+		<%= link_to "iPad", ipads_path %>, 
+		<%= link_to "iPadPro", ipad_pros_path %>, 
+		<%= link_to "iPhone", iphones_path %>,
+		<%= link_to "iPhonePro", iphone_pros_path %> )
+		<br/> 
 		<%= link_to 'Users', users_path %> - 
  		<%= link_to 'Games', games_path %> - 
  		<%= link_to 'Platforms', platforms_path %> - 
